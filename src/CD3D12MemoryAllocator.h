@@ -116,8 +116,8 @@ struct CD3D12MAAllocator
 };
 
 #define CD3D12MAAllocator_Release(this) (this->pVtbl)->Release (this)
-#define CD3D12MAAllocator_GetD3D12Options                                                         \
-  (this, ppOptions) (this->pVtbl)->GetD3D12Options (this, &ppOptions)
+#define CD3D12MAAllocator_GetD3D12Options(this, ppOptions)                                        \
+  (this->pVtbl)->GetD3D12Options (this, &ppOptions)
 
 HRESULT
 CreateAllocator (const CD3D12MA_ALLOCATOR_DESC *pDesc, CD3D12MAAllocator **ppAllocator);

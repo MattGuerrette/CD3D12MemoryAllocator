@@ -31,7 +31,8 @@ CD3D12MAAllocatorGetD3D12Options (CD3D12MAAllocator *pAllocator,
   *ppOptions = &reinterpret_cast<D3D12MA::Allocator *> (pAllocator->pInstance)->GetD3D12Options ();
 }
 
-static const CD3D12MAAllocatorVtbl g_CD3D12MAAllocatorVtbl = { CD3D12MAAllocatorRelease };
+static const CD3D12MAAllocatorVtbl g_CD3D12MAAllocatorVtbl = { CD3D12MAAllocatorRelease,
+                                                               CD3D12MAAllocatorGetD3D12Options };
 
 HRESULT
 CreateAllocator (const CD3D12MA_ALLOCATOR_DESC *pDesc, CD3D12MAAllocator **ppAllocator)
