@@ -17,16 +17,18 @@ static_assert (
 static_assert (sizeof (CD3D12MA_POOL_DESC) == sizeof (D3D12MA::POOL_DESC),
                "Size mismatch: sizeof(CD3D12MA_POOL_DESC) != sizeof(D3D12MA::POOL_DESC)");
 
-#define CD3D12MA_NEW(allocs, type) new (D3D12MA::Allocate<type> (allocs)) (type)
-#define CD3D12MA_NEW_ARRAY(allocs, type, count)                                                   \
-  new (D3D12MA::AllocateArray<type> ((allocs), (count))) (type)
-
 static void
 CD3D12MAAllocatorRelease (CD3D12MAAllocator *pAllocator)
 {
   reinterpret_cast<D3D12MA::Allocator *> (pAllocator->pInstance)->Release ();
-
   free (pAllocator);
+}
+
+static void
+CD3D12MAAllocatorGetD3D12Options (CD3D12MAAllocator *pAllocator,
+                                  const D3D12_FEATURE_DATA_D3D12_OPTIONS **ppOptions)
+{
+  *ppOptions = &reinterpret_cast<D3D12MA::Allocator *> (pAllocator->pInstance)->GetD3D12Options ();
 }
 
 static const CD3D12MAAllocatorVtbl g_CD3D12MAAllocatorVtbl = { CD3D12MAAllocatorRelease };
